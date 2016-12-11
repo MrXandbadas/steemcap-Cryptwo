@@ -9,8 +9,6 @@
 <meta property="og:title" content="steemcap::track the steem market cap">
 <meta property="og:site_name" content="steemcap.com">
 <meta property="og:description" content="steemcap::track the steem market cap - compare against other social networks and cryptocurrencies">
-<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
-<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
 <link rel="stylesheet" type="text/css" href="steemcap.css" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <link ref="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/superhero/bootstrap.min.css">
@@ -54,9 +52,6 @@
               <h1><i class="fa fa-facebook" title="Facebook"></i> <label class="badge badge-info">NASDAQ:FB</small></h1>
               <i class="fa fa-fw fa-facebook"></i> Marketcap <div id="fbcap" class="badge"></div><i class="fa fa-fw fa-usd"></i><br />
               <i class="fa fa-fw fa-facebook"></i> 24 hr change <div id="fbchange" class="badge"></div> %
-              <h1><i class="fa fa-linkedin" title="LinkedIn"></i>  <small class="badge badge-info">NYSE:LNKD</small></h1>
-              <i class="fa fa-fw fa-linkedin"></i> Marketcap <div id="linkedincap" class="badge "></div><i class="fa fa-fw fa-usd"></i><br />
-              <i class="fa fa-fw fa-linkedin"></i> 24 hr change <div id="linkedinchange" class="badge"></div> %
               <h1><i class="fa fa-twitter" title="Twitter"></i>  <small class="badge badge-info">NYSE:TWTR</small></h1>
               <i class="fa fa-fw fa-twitter"></i> Marketcap <div id="twtrcap" class="badge"></div><i class="fa fa-fw fa-usd"></i><br />
               <i class="fa fa-fw fa-twitter"></i> 24 hr change <div id="twtrchange" class="badge"></div> %
@@ -169,14 +164,6 @@ new Markit.QuoteService("TWTR", function(jsonResult) {
     $("#twtrcap").formatNumber();
     $("#spinner2").html('');
     colorLabels("twtr");
-});
-new Markit.QuoteService("LNKD", function(jsonResult) {
-    if (!jsonResult || jsonResult.Message){console.error("Error: ", jsonResult.Message);return;}
-    $("#linkedincap").html(jsonResult.MarketCap);
-    $("#linkedinchange").html(prettify(jsonResult.ChangePercent));
-    $("#linkedincap").formatNumber();
-    $("#spinner2").html('');
-    colorLabels("linkedin");
 });
 
 
