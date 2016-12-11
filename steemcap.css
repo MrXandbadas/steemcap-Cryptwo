@@ -1,0 +1,8 @@
+body {};
+.container {margin:0px; padding:0px; display:block; height:100%; width:100%;}
+.badge-danger {background-color: red !important;}
+.badge-warning {background-color: #d58512 !important;}
+.badge-success {background-color:green !important;}
+.badge-info {background-color: #269abc !important;}
+.badge-inverse {background-color: #333333 !important;}
+
