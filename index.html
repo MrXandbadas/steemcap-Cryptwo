@@ -1,236 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>steemcap :: steem marketcap watch</title>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>steemcap :: steem marketcap watch</title>
 <meta  name="description" content="steemcap::track the steem network market cap and growth stats">
 <meta property="og:title" content="steemcap::track the steem market cap">
 <meta property="og:site_name" content="steemcap.com">
 <meta property="og:description" content="steemcap::track the steem market cap - compare against other social networks and cryptocurrencies">
-<link rel="stylesheet" type="text/css" href="steemcap.css" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-<link ref="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/superhero/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<script src="numbers.js"></script>
+    
+    <meta http-equiv='x-ua-compatible' content='ie=edge'>
 
-</head>
-<body>
-<div class="container">
+    <link ref="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/superhero/bootstrap.min.css">
+    <link ref="stylesheet"type="text/javascript" href="/currency.js">
 
-<div class="row" id="gTrends">
-  <div class="col-md-4"><div>
-    <div class="panel panel-primary">
-            <div class="panel-heading">
-              <h3 class="panel-title" style="text-align:center; font-weight:bold;"><img src="steemcap-100.png"><br />steemcap</h3>
-            </div>
-            <div class="panel-body">
-              <center>
-                Marketcap <span id="steemcapinFavUnit" class="badge"> ? </span>&nbsp;<span class="FavUnit"></span><br />Current Price <span id="steemprice" class="badge"></span>&nbsp;<span class="FavUnit fa fa-btc"></span><br />Volume of <span id="steemvolume" class="badge"> </span>&nbsp;<span class="FavUnit">  </span><br />Total supply: <span id="steemsupply" class="badge"></span> steem<br />24hr Change: <span id="steemchange" class="badge"></span> % <br />CoinMarketCap Rank <span id="steemmarketcaprank" class="badge"> ? </span><br /><br/>
-                <div id="settingsScreen">
-                    <button class="btn btn-xs btn-default" id="swapUSD"><i class="fa fa-fw fa-usd"></i>&nbsp;USD</button>
-                    <button class="btn btn-xs btn-default" id="swapEUR"><i class="fa fa-fw fa-eur"></i>&nbsp;EUR</button>
-                    <button class="btn btn-xs btn-default" id="swapBTC"><i class="fa fa-fw fa-btc"></i>&nbsp;BTC</button>
-                    <button class="btn btn-xs btn-default" id="swapGBP"><i class="fa fa-fw fa-gbp"></i>&nbsp;GBP</button>
-                    <!-- <button class="btn btn-xs btn-default" id="swapAUD"><i class="fa fa-fw fa-usd"></i>&nbsp;AUD</button> -->
-                    <button class="btn btn-xs btn-default" id="swapCNY"><i class="fa fa-fw fa-cny"></i>&nbsp;CNY</button>
-                    <!-- <button class="btn btn-xs btn-default" id="swapHKD"><i class="fa fa-fw fa-usd"></i>&nbsp;HKD</button> -->
-                    <button class="btn btn-xs btn-default" id="swapRUB"><i class="fa fa-fw fa-rub"></i>&nbsp;RUB</button>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-                </div>
-                <span id="spinner"></span>
-              </center>
-            </div>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="steemcap.css">
 
-          </div>
+  </head>
+  <body>
+  
+<div id="mainContain">
+  <div class="mainContainHead"><img src="images/steemcapbanner.png" class="responsive-img"></div>
 
 
-          <div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">Compare to <i class="fa fa-fw fa-facebook"></i> , <i class="fa fa-fw fa-twitter"></i> , <i class="fa fa-fw fa-btc"></i> and <i class="fa fa-fw fa-diamond"></i></h3></div><div class="panel-body">
-              <center>
-              <h1><i class="fa fa-facebook" title="Facebook"></i> <label class="badge badge-info">NASDAQ:FB</small></h1>
-              <i class="fa fa-fw fa-facebook"></i> Marketcap <div id="fbcap" class="badge"></div><i class="fa fa-fw fa-usd"></i><br />
-              <i class="fa fa-fw fa-facebook"></i> 24 hr change <div id="fbchange" class="badge"></div> %
-              <h1><i class="fa fa-twitter" title="Twitter"></i>  <small class="badge badge-info">NYSE:TWTR</small></h1>
-              <i class="fa fa-fw fa-twitter"></i> Marketcap <div id="twtrcap" class="badge"></div><i class="fa fa-fw fa-usd"></i><br />
-              <i class="fa fa-fw fa-twitter"></i> 24 hr change <div id="twtrchange" class="badge"></div> %
-              <span id="spinner2"><br /><i class="fa fa-refresh fa-spin fa-3x fa-fw"></i></span>
-              <h1><i class="fa fa-btc" title="Bitcoin"></i>  <small class="badge badge-info">BITFINEX:BTCUSD</small></h1>
-              <i class="fa fa-fw fa-btc"></i> Marketcap <div id="btccap" class="badge"></div><i class="fa fa-fw fa-usd"></i><br />
-              <i class="fa fa-fw fa-btc"></i> 24 hr change <div id="btcchange" class="badge"></div> %<br />
-              <span id="btcspinner"><br /><i class="fa fa-refresh fa-spin fa-3x fa-fw"></i></span>
-              <h1><i class="fa fa-diamond" title="Ethereum"></i>  <small class="badge badge-info">BITFINEX:ETHUSD</small></h1>
-              <i class="fa fa-fw fa-diamond"></i> Marketcap <div id="ethcap" class="badge"></div><i class="fa fa-fw fa-usd"></i><br />
-              <i class="fa fa-fw fa-diamond"></i> 24 hr change <div id="ethchange" class="badge"></div> %</i><br />
-              <span id="ethspinner"><br /><i class="fa fa-refresh fa-spin fa-3x fa-fw"></i></span>
-            </center>
-          </div></div>
 
-  </div></div>
-
-
-<div class="col-md-4">
-
+      <!-- This here is the start of 1st Panel -->
+<div id="divB">
+  
   <div class="panel panel-primary"><div class="panel-heading"><center><h3 class="panel-title"><i class="fa fa-fw fa-question"></i> What is steem  <i class="fa fa-fw fa-question"></i></h3></center></div><div class="panel-body">
-      <center>
-        <span style="display: inline-block; width: 8rem; height: 8rem;" is="null"><svg viewBox="0 0 28 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="steem"><path d="M4.22924444,3.23195745 C3.94488889,3.09004255 0.337866667,6.07148936 0.337866667,8.265 C0.332888889,11.2631064 4.54533333,18.0552766 5.25466667,20.6825532 C5.86506667,22.9359149 4.21928889,25.6403191 4.67164444,25.7631064 C5.0848,26.0284255 9.01475556,22.0486383 9.16782222,20.3518298 C9.36506667,17.6498936 4.57893333,9.77114894 4.19751111,7.73682979 C3.75511111,5.36253191 4.54782222,3.28502128 4.22924444,3.23195745 L4.22924444,3.23195745 L4.22924444,3.23195745 Z" id="Fill-1" fill="#1A5099"></path><path d="M13.2321778,0.130191489 C12.8700444,-0.0505957447 8.26871111,3.74778723 8.26871111,6.54844681 C8.26373333,10.3715106 13.6353778,19.0338723 14.5394667,22.3812128 C15.3172444,25.2546809 13.2197333,28.7038298 13.7934222,28.8580851 C14.3235556,29.1949787 19.3324444,24.1242979 19.5296889,21.9573191 C19.7823111,18.5131064 13.6764444,8.46738298 13.1904889,5.86910638 C12.6267556,2.84878723 13.6353778,0.197446809 13.2321778,0.130191489 L13.2321778,0.130191489 L13.2321778,0.130191489 Z" id="Fill-2" fill="#4BA2F2"></path><path d="M22.5238222,3.23195745 C22.2419556,3.09004255 18.6324444,6.07148936 18.6324444,8.265 C18.6280889,11.2631064 22.8399111,18.0552766 23.5498667,20.6825532 C24.1596444,22.9359149 22.5144889,25.6403191 22.9662222,25.7631064 C23.3818667,26.0284255 27.3124444,22.0486383 27.4630222,20.3518298 C27.6596444,17.6498936 22.8741333,9.77114894 22.4920889,7.73682979 C22.0503111,5.36253191 22.8424,3.28502128 22.5238222,3.23195745 L22.5238222,3.23195745 Z" id="Fill-3" fill="#1A5099"></path></g></g></svg></span>
-        <p>Steemit is a revolutionary new blockchain-based social media platform where <strong>anyone</strong> can earn <strong>rewards</strong> .</p>
-        <p><i class="fa fa-fw fa-rocket"></i>Join <a href="https://steemit.com">steemit</a> today!</p>
-        <p><i class="fa fa-fw fa-mortar-board"></i>Read the whitepaper at <a href="https://steem.io">steem.io</a> for more info</p>
-        <p><i class="fa fa-fw fa-heart"></i> Like the site ? Show <a href="https://steemit.com/@ausbitbank">@ausbitbank</a> some love</p>
-        <p><i class="fa fa-fw fa-binoculars"></i>Watch the blockchain live at <a href="https://steemviz.com">steemviz</a></p>
-        <p><i class="fa fa-fw fa-random"></i>Find more neat tools at <a href="http://www.steemtools.com">steemtools</a></p>
-    </center>
-  </div></div>
+    <center>
+      <span style="display: inline-block; width: 8rem; height: 8rem;" is="null"><svg viewBox="0 0 28 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="steem"><path d="M4.22924444,3.23195745 C3.94488889,3.09004255 0.337866667,6.07148936 0.337866667,8.265 C0.332888889,11.2631064 4.54533333,18.0552766 5.25466667,20.6825532 C5.86506667,22.9359149 4.21928889,25.6403191 4.67164444,25.7631064 C5.0848,26.0284255 9.01475556,22.0486383 9.16782222,20.3518298 C9.36506667,17.6498936 4.57893333,9.77114894 4.19751111,7.73682979 C3.75511111,5.36253191 4.54782222,3.28502128 4.22924444,3.23195745 L4.22924444,3.23195745 L4.22924444,3.23195745 Z" id="Fill-1" fill="#1A5099"></path><path d="M13.2321778,0.130191489 C12.8700444,-0.0505957447 8.26871111,3.74778723 8.26871111,6.54844681 C8.26373333,10.3715106 13.6353778,19.0338723 14.5394667,22.3812128 C15.3172444,25.2546809 13.2197333,28.7038298 13.7934222,28.8580851 C14.3235556,29.1949787 19.3324444,24.1242979 19.5296889,21.9573191 C19.7823111,18.5131064 13.6764444,8.46738298 13.1904889,5.86910638 C12.6267556,2.84878723 13.6353778,0.197446809 13.2321778,0.130191489 L13.2321778,0.130191489 L13.2321778,0.130191489 Z" id="Fill-2" fill="#4BA2F2"></path><path d="M22.5238222,3.23195745 C22.2419556,3.09004255 18.6324444,6.07148936 18.6324444,8.265 C18.6280889,11.2631064 22.8399111,18.0552766 23.5498667,20.6825532 C24.1596444,22.9359149 22.5144889,25.6403191 22.9662222,25.7631064 C23.3818667,26.0284255 27.3124444,22.0486383 27.4630222,20.3518298 C27.6596444,17.6498936 22.8741333,9.77114894 22.4920889,7.73682979 C22.0503111,5.36253191 22.8424,3.28502128 22.5238222,3.23195745 L22.5238222,3.23195745 Z" id="Fill-3" fill="#1A5099"></path></g></g></svg></span>
+      <p>Steemit is a revolutionary new blockchain-based social media platform where <strong>anyone</strong> can earn <strong>rewards</strong> .</p>
+      <p><i class="fa fa-fw fa-rocket"></i>Join <a href="https://steemit.com">steemit</a> today!</p>
+      <p><i class="fa fa-fw fa-mortar-board"></i>Read the whitepaper at <a href="https://steem.io">steem.io</a> for more info</p>
+      <p><i class="fa fa-fw fa-heart"></i> Like the site ? Show <a href="https://steemit.com/@ausbitbank">@ausbitbank</a> some love</p>
+      <p>A container rework by <a href="https://steemit.com/@Kodieamos">@Kodieamos</a></p>
+      <p>Updates to come from <a href="https://steemit.com/@cryptwo">@CrypTwo</a></p>
+      <p><i class="fa fa-fw fa-binoculars"></i>Watch the blockchain live at <a href="https://steemviz.com">steemviz</a></p>
+      <p><i class="fa fa-fw fa-random"></i>Find more neat community tools at <a href="http://www.steemtools.com">steemtools</a></p>
+  </center>
+</div></div>
+  
 
-
-  <div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title"><center><i class="fa fa-fw fa-twitter">&nbsp;</i>Twitter Tracker (steem/steemit/@steemit)</center></h3></div><div class="panel-body"><a class="twitter-timeline"  href="https://twitter.com/search?q=steem%20OR%20steemit%20OR%20steemit.com%20OR%20%40steemit%20OR%20%40ausbitbank" data-widget-id="756800054468325376">Tweets about steem OR steemit OR steemit.com OR @steemit OR @ausbitbank</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></div></div></div>
-  <div class="col-md-4">
-    <div class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title"><center><i class="fa fa-fw fa-google">&nbsp;</i>Google Trends - 1 week</center></h3></div><div class="panel-body"><span style="overflow-x:hidden !important;overflow-y:hidden !important;"><script type="text/javascript" src="https://www.google.com/trends/embed.js?hl=en-US&q=steem,steemit,steemian&date=now+7-d&cmpt=q&tz=Etc/GMT-10&tz=Etc/GMT-10&content=1&cid=TIMESERIES_GRAPH_0&export=5&w=340&h=350"></script></span></div></div>
-  </div>
-
-<script>
-$(function() {
-
-var coincapAPI = "http://coinmarketcap-nexuist.rhcloud.com/api/steem/";
-var FavUnit = "usd";
-var pv=0
-
-$( "#settingsButton" ).click(function() { $("#settingsScreen").toggle(); });
-$( "#swapUSD" ).click(function() {changeUnit('usd'); });
-$( "#swapEUR" ).click(function() {changeUnit('eur'); });
-$( "#swapBTC" ).click(function() {changeUnit('btc'); });
-$( "#swapGBP" ).click(function() {changeUnit('gbp'); });
-$( "#swapAUD" ).click(function() {changeUnit('aud'); });
-$( "#swapCNY" ).click(function() {changeUnit('cny'); });
-$( "#swapHKD" ).click(function() {changeUnit('hkd'); });
-$( "#swapRUB" ).click(function() {changeUnit('rub'); });
-
-function changeUnit(FavUnit){
-  $(".FavUnit").removeClass("fa fa-btc fa-aud fa-eur fa-cny fa-usd fa-hkd fa-rub fa-gbp");
-  var FavUnitClass = 'fa fa-'+FavUnit+'';
-  $(".FavUnit").addClass(FavUnitClass);
-  $("#spinner").html('<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>');
-  loadCapApi(FavUnit);
-}
-
-function prettify(uglynumber) {
-  prettynumber = parseFloat(uglynumber).toFixed(2);
-  return prettynumber;
-}
-
-var Markit = {};
-Markit.QuoteService = function(sSymbol, fCallback) {
-    this.symbol = sSymbol;
-    this.fCallback = fCallback;
-    this.DATA_SRC = "http://dev.markitondemand.com/Api/v2/Quote/jsonp";
-    this.makeRequest();
-};
-Markit.QuoteService.prototype.handleSuccess = function(jsonResult) {
-    this.fCallback(jsonResult);
-};
-Markit.QuoteService.prototype.handleError = function(jsonResult) {
-    console.error(jsonResult);
-};
-Markit.QuoteService.prototype.makeRequest = function() {
-    //Abort any open requests
-    if (this.xhr) { this.xhr.abort(); }
-    //Start a new request
-    this.xhr = $.ajax({
-        data: { symbol: this.symbol },
-        url: this.DATA_SRC,
-        dataType: "jsonp",
-        success: this.handleSuccess,
-        error: this.handleError,
-        context: this
-    });
-};
-
-new Markit.QuoteService("FB", function(jsonResult) {
-    if (!jsonResult || jsonResult.Message){console.error("Error: ", jsonResult.Message);return;}
-    $("#fbcap").html(jsonResult.MarketCap);
-    $("#fbchange").html(prettify(jsonResult.ChangePercent));
-    $("#fbcap").formatNumber();
-    $("#spinner2").html('');
-    colorLabels("fb");
-});
-new Markit.QuoteService("TWTR", function(jsonResult) {
-    if (!jsonResult || jsonResult.Message){console.error("Error: ", jsonResult.Message);return;}
-    $("#twtrcap").html(jsonResult.MarketCap);
-    $("#twtrchange").html(prettify(jsonResult.ChangePercent));
-    $("#twtrcap").formatNumber();
-    $("#spinner2").html('');
-    colorLabels("twtr");
-});
-
-
-function loadCapApi(FavUnit){
-  var coincapsteemAPI = "http://coinmarketcap-nexuist.rhcloud.com/api/steem/";
-  $.getJSON(coincapsteemAPI, { get_param: 'value' }, function(data) {
-      $("#spinner").html('');
-      $.each( data, function( key, value ) {
-        if (key == "position") { $("#steemmarketcaprank").html(value);$("#steemmarketcaprank")}
-        if (key == "supply") { $("#steemsupply").html(value); $("#steemsupply").formatNumber();}
-        if (key == "volume") { $("#steemvolume").html(prettify(value[FavUnit])); $("#volume").formatNumber(); }
-        if (key == "change") { $("#steemchange").html(value); }
-        if (key == "price") { if (FavUnit == "btc") {$("#steemprice").html(value[FavUnit]); $("#steemprice").formatNumber();} else {$("#steemprice").html(prettify(value[FavUnit])); $("#steemprice").formatNumber();}  }
-        if (key == "market_cap") { $("#steemcapinFavUnit").html(prettify(value[FavUnit])); $("#steemcapinFavUnit").formatNumber();}
-        //console.log('key '+key+' value '+value+' ');
-    });
-    colorLabels("steem");
-  });
-}
-
-function loadBTCCapApi(FavUnit){
-  $.getJSON("http://coinmarketcap-nexuist.rhcloud.com/api/btc/", { get_param: 'value' }, function(data) {
-      $("#btcspinner").html('');
-      $.each( data, function( key, value ) {
-        if (key == "change") { $("#btcchange").html(value); }
-        if (key == "market_cap") { $("#btccap").html(prettify(value[FavUnit])); $("#btccap").formatNumber();}
-    });
-    colorLabels("btc");
-  });
-}
-
-function loadETHCapApi(FavUnit){
-  $.getJSON("http://coinmarketcap-nexuist.rhcloud.com/api/eth/", { get_param: 'value' }, function(data) {
-      $("#ethspinner").html('');
-      $.each( data, function( key, value ) {
-        if (key == "change") { $("#ethchange").html(value); }
-        if (key == "market_cap") { $("#ethcap").html(prettify(value[FavUnit])); $("#ethcap").formatNumber();}
-    });
-    colorLabels("eth");
-  });
-}
-
-function colorLabels(who){
-  tmpwhere = $("#"+who+"change");
-  tmpwhereelse = $("#"+who+"cap");
-  tmpchange = $(tmpwhere).html();
-  if (tmpchange > 0) {
-    $(tmpwhere).addClass("badge-success");
-    $(tmpwhere).removeClass("badge-danger");
-    $(tmpwhereelse).addClass("badge-success");
-    $(tmpwhereelse).removeClass("badge-danger")
-  } else {
-    $(tmpwhere).addClass("badge-danger");
-    $(tmpwhere).removeClass("badge-success");
-    $(tmpwhereelse).addClass("badge-danger");
-    $(tmpwhereelse).removeClass("badge-success")
-  }
-
-}
-
-
-changeUnit(FavUnit);
-loadCapApi(FavUnit);
-loadBTCCapApi(FavUnit);
-loadETHCapApi(FavUnit);
-
-})
-</script>
 </div>
-</body>
-</html>
+<div id="divA">
+      <!-- This here is the end of 1st Panel -->
 
+      <!-- This here is the CompareValue Panel -->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Compare to 
+          <i class="fa fa-fw fa-facebook"></i> ,
+           <i class="fa fa-fw fa-twitter"></i> , 
+           <i class="fa fa-fw fa-btc"></i> and 
+           <i class="fa fa-fw fa-diamond"></i>
+          </h3>
+        </div>
+        <div class="panel-body">
+        <center>
+        <h1><i class="fa fa-facebook" title="Facebook"></i> 
+          <label class="badge badge-info">NASDAQ:FB</small>
+        </h1>
+        <i class="fa fa-fw fa-facebook"></i> Marketcap 
+        <div id="fbcap" class="badge"></div>
+        <i class="fa fa-fw fa-usd"></i>
+        <br />
+        <i class="fa fa-fw fa-facebook"></i> 24 hr change 
+        <div id="fbchange" class="badge"></div> %
+        <h1>
+          <i class="fa fa-twitter" title="Twitter">
+          </i>  <small class="badge badge-info">NYSE:TWTR</small>
+        </h1>
+        <i class="fa fa-fw fa-twitter"></i> Marketcap 
+        <div id="twtrcap" class="badge"></div>
+        <i class="fa fa-fw fa-usd"></i><br />
+        <i class="fa fa-fw fa-twitter"></i> 24 hr change 
+        <div id="twtrchange" class="badge"></div> %
+        <span id="spinner2"><br />
+          <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i></span>
+        <h1>
+          <i class="fa fa-btc" title="Bitcoin"></i>  
+          <small class="badge badge-info">BITFINEX:BTCUSD</small>
+        </h1>
+        <i class="fa fa-fw fa-btc"></i> Marketcap 
+        <div id="btccap" class="badge"></div>
+        <i class="fa fa-fw fa-usd"></i><br />
+        <i class="fa fa-fw fa-btc"></i> 24 hr change 
+        <div id="btcchange" class="badge"></div> %<br />
+        <span id="btcspinner"><br />
+          <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+        </span>
+        <h1>
+          <i class="fa fa-diamond" title="Ethereum"></i>  
+          <small class="badge badge-info">BITFINEX:ETHUSD</small>
+        </h1>
+        <i class="fa fa-fw fa-diamond"></i> Marketcap 
+        <div id="ethcap" class="badge"></div>
+        <i class="fa fa-fw fa-usd"></i><br />
+        <i class="fa fa-fw fa-diamond"></i> 24 hr change 
+        <div id="ethchange" class="badge"></div> %</i><br />
+        <span id="ethspinner"><br />
+          <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+        </span>
+      </center>
+    </div>
+  </div>
+</div>
+    <!-- This here is the end of CompareValue Panel -->
+
+<!-- This here is the SteemCap Panel
+
+
+  "HOLDMYCODE"
+class"responsive-img"
+-->
+<div id="divC"><div class="panel panel-primary">
+    <div class="panel-heading">
+     <center> <h3 class="panel-title" id="steemCapTxt"><img src="images/steemcap-100.png" ><br /></h3> </center>
+    </div>
+    <div class="panel-body">
+      <center>
+
+          <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currencyid="1230" data-base="AUD" data-secondary="BTC" data-ticker="true" data-rank="true" data-marketcap="false" data-volume="true" data-stats="AUD" data-statsticker="true"></div>
+
+          <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currencyid="1312" data-base="AUD" data-secondary="BTC" data-ticker="true" data-rank="true" data-marketcap="false" data-volume="true" data-stats="AUD" data-statsticker="true"></div>
+
+      </center>
+
+            <!-- END OF NEWSHIT-->
+        </div>
+        <span id="spinner"></span>
+      </center>
+    </div></div></div>
+    <!-- This here is the end of SteemCap Panel -->
+
+<div> <!--end on mainContain-->
+</div>
+<div>
+</div>
+  </div>
+</div>
+
+
+    <script>
+    </script>
+  </body>
+</html>

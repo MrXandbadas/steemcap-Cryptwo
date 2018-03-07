@@ -1,8 +1,89 @@
-body {};
-.container {margin:0px; padding:0px; display:block; height:100%; width:100%;}
-.badge-danger {background-color: red !important;}
-.badge-warning {background-color: #d58512 !important;}
-.badge-success {background-color:green !important;}
-.badge-info {background-color: #269abc !important;}
-.badge-inverse {background-color: #333333 !important;}
-
+body {
+    /*Define the Body*/
+      margin: 1%;
+      padding: 1%;
+      background-color: #70b8f7;
+    }
+    h3 {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight:bold;
+    }
+  
+    #mainContain {
+      display:grid;
+      grid-column-gap:5px;
+      grid-row-gap:5px;
+      grid-template-areas: 
+      "header header header"
+      " . . . "
+      " content0 content1 content2"
+      " content0 content1 content2"
+      " content0 content1 content2"
+      ;
+      grid-auto-rows: auto 5% auto auto auto auto auto;
+      grid-auto-columns: auto auto auto ;
+      
+    }
+  
+    .mainContainHead {
+      grid-area: header;
+      grid-column-start: 0 ;
+      grid-column-end: 4;
+      border: 10px ridge rgb(122, 5, 218);
+      background-color:  #1a51999a;
+      height: minmax(60px, 700px);
+  
+    }
+  .panel-title{
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .panel-body {
+    width: minmax(200px, auto);
+    height: minmax(300px, auto)
+  }
+  #divA{
+    grid-area: content0;
+    position: float;
+    grid-row-start: 3;
+    grid-row-end: 6;
+    height: 600px;
+    
+  }
+  .divAA{
+    display: grid;
+    position: relative;
+    height: 300px;
+  }
+  #divB{
+    grid-area: content1;
+    position: relative;
+  }
+  #divC{
+    grid-area: content2;
+  
+    position: relative;
+  }
+  
+  .responsive-img {
+    display:block;
+    max-width:100%;
+    min-width: 50%;
+    max-height:100%;
+    min-height: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin: auto;
+  }
+  
+  
+  /* Below definitions from the godandglory AusbitBank*/
+  .badge-danger {background-color: red !important;}
+  .badge-warning {background-color: #d58512 !important;}
+  .badge-success {background-color:green !important;}
+  .badge-info {background-color: #269abc !important;}
+  .badge-inverse {background-color: #333333 !important;}
+  
+  
