@@ -77,7 +77,11 @@ body {
     margin-right: auto;
     margin: auto;
   }
-  
+  .trendy-sizer {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   
   /* Below definitions from the godandglory AusbitBank*/
   .badge-danger {background-color: red !important;}
